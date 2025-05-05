@@ -21,7 +21,7 @@ class QuestionController extends Controller
         if ($params->fails()) {
             $messageArr = [];
             $messageArr['message'] = $params->errors();
-            return response()->json($params, Response::HTTP_BAD_REQUEST);
+            return response()->json($messageArr, Response::HTTP_BAD_REQUEST);
         }
 
         $result = $request->all();
