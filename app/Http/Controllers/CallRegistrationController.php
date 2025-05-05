@@ -14,7 +14,7 @@ class CallRegistrationController extends Controller
      */
     public function index()
     {
-        $model = CallRegistration::select('id','phone','theme_id','operator_id','comment','created_at')->paginate(20);
+        $model = CallRegistration::select('id','phone','theme_id','operator_id','comment','created_at','updated_at')->paginate(20);
         return response()->json(['message' => 'ok', 'data'=>$model]);
     }
 
@@ -38,10 +38,10 @@ class CallRegistrationController extends Controller
            'phone' => $result['phone'],
            'theme_id' => $result['theme_id'],
            'comment' => $result['comment'],
-           'operator_id' => $operator,
+           'yammt_type' => $result['yammt_type'],
+           'operator_id' => $operator
         ]);
         return \response()->json(['message' => 'ok','data' => $data]);
-
     }
 
     /**
