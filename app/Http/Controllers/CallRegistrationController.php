@@ -14,7 +14,8 @@ class CallRegistrationController extends Controller
      */
     public function index()
     {
-        $model = CallRegistration::select('id','phone','theme_id','operator_id','comment','created_at','updated_at')->paginate(20);
+        $operator = auth()->user()->id;
+        $model = CallRegistration::where('operator_id', $operator)->select('id','phone','theme_id','operator_id','comment','created_at','updated_at')->paginate(20);
         return response()->json(['message' => 'ok', 'data'=>$model]);
     }
 
