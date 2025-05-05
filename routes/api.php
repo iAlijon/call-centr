@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CallRegistrationController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,4 +16,5 @@ Route::middleware('auth:api')->group(function (){
     Route::get('category', [CategoryController::class, 'index']);
     Route::post('category_create', [CategoryController::class, 'create']);
     Route::post('question', [QuestionController::class, 'store']);
+    Route::apiResource('call_registration', CallRegistrationController::class);
 });

@@ -25,11 +25,12 @@ class QuestionController extends Controller
         }
 
         $result = $request->all();
+
         $data = Question::create([
             'question' => $result['question'],
             'answer' => $result['answer'],
             'yammt_type' => $result['yammt_type'],
-            'yammt_category_id' => $result['yammt_category_id']
+            'yammt_category_id' => $result['yammt_category_id'],
         ]);
         return \response()->json(['message' => 'ok', 'data' => $data]);
     }

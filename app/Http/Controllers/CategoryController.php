@@ -20,7 +20,6 @@ class CategoryController extends Controller
     {
         $result = Validator::make($request->all(),[
            'name' => 'required|string',
-           'category_type' => 'required'
         ]);
 
         if ($result->fails()) {
@@ -31,7 +30,7 @@ class CategoryController extends Controller
         $data =  $request->all();
         $model = YammtCategory::create([
            'name' => $data['name'],
-           'category_type' => $data['category_type']
+           'category_type' => null
         ]);
         return \response()->json(['message' => 'Successfully create data!!!', 'data' => $model], 200);
     }
