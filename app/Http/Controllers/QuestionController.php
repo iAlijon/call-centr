@@ -13,25 +13,35 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         $input = $request->all();
+        $per_page = $input['per_page'] ?? 20;
 
-        $per_page = $input['per_page'] ? $input['per_page'] : 20;
-        if (isset($input['search']) && !empty($input['search']) || isset($input['yammt_category_id']) && !empty($input['yammt_category_id']) || isset($input['yammt_type']) && !empty($input['yammt_type'])) {
-            if ($input['search']) {
-                $data = Question::where('question', 'ilike', '%' . $input['search'] . '%')->orWhere('answer', 'ilike', '%' . $input['search'] . '%');
-            }
-            if ($input['yammt_category_id']) {
-                $data = Question::where('yammt_category_id', $input['yammt_category_id']);
-            }
-            if ($input['yammt_type']) {
-                $data = Question::where('yammt_type', $input['yammt_type']);
-            }
-        } else {
-            $data = Question::query();
+        $query = Question::query();
+
+        if (!empty($input['search'])) {
+            $query->where(function ($q) use ($input) {
+                $q->where('question', 'ilike', '%' . $input['search'] . '%')
+                    ->orWhere('answer', 'ilike', '%' . $input['search'] . '%');
+            });
         }
-        $params = $data->select('id', 'question', 'answer', 'yammt_type', 'yammt_category_id', 'created_at')
+
+        if (!empty($input['yammt_category_id'])) {
+            $query->where('yammt_category_id', $input['yammt_category_id']);
+        }
+
+        if (!empty($input['yammt_type'])) {
+            $query->where('yammt_type', $input['yammt_type']);
+        }
+
+        $data = $query
+            ->select('id', 'question', 'answer', 'yammt_type', 'yammt_category_id', 'created_at')
             ->orderBy('created_at', 'desc')
             ->paginate($per_page);
-        return \response()->json(['success' => true, 'data' => $params, 'message' => 'ok']);
+
+        return response()->json([
+            'success' => true,
+            'data' => $data,
+            'message' => 'ok'
+        ]);
     }
 
     public function store(Request $request)
