@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('yammt_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('category_type');
             $table->timestamps();
         });
     }

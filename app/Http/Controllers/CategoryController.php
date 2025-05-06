@@ -30,7 +30,6 @@ class CategoryController extends Controller
         $data =  $request->all();
         $model = YammtCategory::create([
            'name' => $data['name'],
-           'category_type' => null
         ]);
         return \response()->json(['message' => 'Successfully create data!!!', 'data' => $model], 200);
     }
