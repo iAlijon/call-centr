@@ -26,7 +26,8 @@ class CallRegistrationController extends Controller
     {
         $validation = Validator::make($request->all(), [
             'phone' => 'required',
-            'comment' => 'required'
+            'comment' => 'required',
+            'yammt_type' => 'required'
         ]);
         if ($validation->fails()) {
             $responseArr = [];

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('phone');
             $table->integer('theme_id');
             $table->integer('operator_id');
+            $table->integer('yammt_type')->comment('1-yuridik ,2-jismoniy');
             $table->text('comment');
             $table->timestamps();
 
