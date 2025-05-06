@@ -12,7 +12,7 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         $input = $request->all();
-        $per_page = $input['per_page']?$input['per_page']:20;
+        $per_page = $input['per_page'] ?? 20;
         $data = Question::orderBy('created_at', 'desc')->paginate($per_page);
         return \response()->json(['success' => true, 'data' => $data, 'message' => 'ok']);
     }
