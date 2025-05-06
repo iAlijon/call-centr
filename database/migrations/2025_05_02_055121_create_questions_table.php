@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->string('question');
-            $table->string('answer');
+            $table->text('question');
+            $table->text('answer');
             $table->integer('yammt_type')->comment('1-yuridik, 2-jismoniy');
             $table->integer('yammt_category_id');
             $table->timestamps();
