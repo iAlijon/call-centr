@@ -9,6 +9,12 @@ use App\Models\Question;
 
 class QuestionController extends Controller
 {
+    public function index()
+    {
+        $data = Question::orderBy('created_at', 'desc')->paginate(20);
+        return \response()->json(['success' => true, 'data' => $data, 'message' => 'ok']);
+    }
+
     public function store(Request $request)
     {
         $params = Validator::make($request->all(), [
