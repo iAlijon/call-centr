@@ -6,15 +6,31 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Question;
+use function Laravel\Prompts\select;
 
 class QuestionController extends Controller
 {
     public function index(Request $request)
     {
         $input = $request->all();
-        $per_page = $input['per_page']?$input['per_page']:20;
-        $data = Question::orderBy('created_at', 'desc')->paginate($per_page);
-        return \response()->json(['success' => true, 'data' => $data, 'message' => 'ok']);
+        $per_page = $input['per_page'] ? $input['per_page'] : 20;
+        if (isset($input['search']) && !empty($input['search']) || isset($input['yammt_category_id']) && !empty($input['yammt_category_id']) || isset($input['yammt_type']) && !empty($input['yammt_type'])) {
+            if ($input['search']) {
+                $data = Question::where('question', 'ilike', '%' . $input['search'] . '%')->orWhere('answer', 'ilike', '%' . $input['search'] . '%');
+            }
+            if ($input['yammt_category_id']) {
+                $data = Question::where('yammt_category_id', $input['yammt_category_id']);
+            }
+            if ($input['yammt_type']) {
+                $data = Question::where('yammt_type', $input['yammt_type']);
+            }
+        } else {
+            $data = Question::query();
+        }
+        $params = $data->select('id', 'question', 'answer', 'yammt_type', 'yammt_category_id', 'created_at')
+            ->orderBy('created_at', 'desc')
+            ->paginate($per_page);
+        return \response()->json(['success' => true, 'data' => $params, 'message' => 'ok']);
     }
 
     public function store(Request $request)
