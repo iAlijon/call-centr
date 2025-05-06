@@ -12,7 +12,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $model = YammtCategory::select('id','name','category_type')->get();
+        $model = YammtCategory::select('id','name')->get();
         return response()->json(['message' => 'ok', 'data' => $model]);
     }
 
