@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Question;
-use function Laravel\Prompts\select;
+
 
 class QuestionController extends Controller
 {
