@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('call_themes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('yammt_type')->comment('1-yuridik, 2-jismoniy');
             $table->timestamps();
         });
     }
