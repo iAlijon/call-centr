@@ -13,9 +13,8 @@ Route::get('/user', function (Request $request) {
 Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group(function (){
-    Route::get('category', [CategoryController::class, 'index']);
-    Route::post('category_create', [CategoryController::class, 'create']);
-        Route::get('question_list', [QuestionController::class, 'index']);
+    Route::apiResource('category', CategoryController::class);
+    Route::get('question_list', [QuestionController::class, 'index']);
     Route::post('question', [QuestionController::class, 'store']);
     Route::apiResource('call_registration', CallRegistrationController::class);
 });
