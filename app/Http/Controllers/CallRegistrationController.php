@@ -6,17 +6,34 @@ use App\Models\CallRegistration;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use function Pest\Mutate\create;
 
 class CallRegistrationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $params = $request->all();
         $operator = auth()->user()->id;
-        $model = CallRegistration::where('operator_id', $operator)->select('id','phone','theme_id','operator_id','comment','created_at','updated_at')->paginate(20);
-        return response()->json(['message' => 'ok', 'data'=>$model]);
+        $model = CallRegistration::query();
+        if (isset($params['date_from']) && isset($params['date_to'])) {
+//            $model->where('created_at', '>=', $params['date_from'])->where('created_at', '<=', $params['date_to']);
+            $model->whereBetween('created_at', [$params['date_from'], $params['date_to']]);
+        }
+        if (isset($params['phone'])) {
+            $model->where(['phone', 'ilike','%'.$params['phone'].'%']);
+        }
+        if (isset($params['yammt_type'])) {
+            $model->where('yammt_type',1);
+        }
+        $models = $model->with('theme') // <-- bu joy muhim
+        ->where('operator_id', $operator)
+            ->select('id','phone','theme_id','operator_id','comment','created_at','updated_at')
+            ->paginate(20);
+
+        return response()->json(['message' => 'ok', 'data' => $models]);
     }
 
     /**

@@ -19,10 +19,10 @@ class UserSeeder extends Seeder
         Role::create(['name' => 'moderator']);
 
         User::create([
-            'email' => 'operator1@gmail.com',
-            'role_id' => 2,
-            'name' => 'operator1',
-            'password' => bcrypt('operator1')
+            'email' => 'admin@gmail.com',
+            'role_id' => 1,
+            'name' => 'admin',
+            'password' => bcrypt('admin')
         ]);
     }
 }
