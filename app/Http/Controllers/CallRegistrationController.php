@@ -19,18 +19,17 @@ class CallRegistrationController extends Controller
         $operator = auth()->user()->id;
         $model = CallRegistration::query();
         if (isset($params['date_from']) && isset($params['date_to'])) {
-//            $model->where('created_at', '>=', $params['date_from'])->where('created_at', '<=', $params['date_to']);
-            $model->whereBetween('created_at', [$params['date_from'], $params['date_to']]);
+            $model->where('created_at', '>=', $params['date_from'])->where('created_at', '<=', $params['date_to']);
         }
         if (isset($params['phone'])) {
-            $model->where(['phone', 'ilike','%'.$params['phone'].'%']);
+            $model->where('phone', 'ilike','%'.$params['phone'].'%');
         }
         if (isset($params['yammt_type'])) {
-            $model->where('yammt_type',1);
+            $model->where('yammt_type',$params['yammt_type']);
         }
-        $models = $model->with('theme') // <-- bu joy muhim
-        ->where('operator_id', $operator)
-            ->select('id','phone','theme_id','operator_id','comment','created_at','updated_at')
+        $models = $model->with('theme:id,name,yammt_type') // <-- bu joy muhim
+            ->where('operator_id', $operator)
+            ->select('id','phone','yammt_type','theme_id','operator_id','comment','created_at')
             ->paginate(20);
 
         return response()->json(['message' => 'ok', 'data' => $models]);
