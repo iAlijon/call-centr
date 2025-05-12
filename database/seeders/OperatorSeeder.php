@@ -15,6 +15,11 @@ class OperatorSeeder extends Seeder
     {
         $operators = [
           [
+              'name' => 'operator1',
+              'password' => 'operator1',
+              'role' => 2
+          ],
+          [
               'name' => 'operator2',
               'password' => 'operator2',
               'role' => 2
@@ -127,6 +132,11 @@ class OperatorSeeder extends Seeder
           [
               'name' => 'operator24',
               'password' => 'operator24',
+              'role' => 2
+          ],
+          [
+              'name' => 'operator25',
+              'password' => 'operator25',
               'role' => 2
           ],
         ];
