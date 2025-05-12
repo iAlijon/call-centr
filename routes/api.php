@@ -20,6 +20,7 @@ Route::middleware('auth:api')->group(function (){
     Route::post('question', [QuestionController::class, 'store']);
     Route::apiResource('call_registration', CallRegistrationController::class);
     Route::apiResource('theme', ThemesController::class);
+    Route::get('operator_create', [AdminAddOperatorController::class, 'index']);
     Route::post('operator_create', [AdminAddOperatorController::class, 'store']);
     Route::get('operator_create/{id}', [AdminAddOperatorController::class, 'show']);
     Route::put('operator_create/{id}', [AdminAddOperatorController::class, 'update']);

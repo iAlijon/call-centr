@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminAddOperatorController extends Controller
 {
+    public function index()
+    {
+        $users = User::select('id','name','password')->paginate(20);
+       return \response()->json(['success' => true,'data' => $users, 'message' => 'ok']);
+    }
+
     public function store(Request $request)
     {
         $role_name = auth()->user()->role->name;
