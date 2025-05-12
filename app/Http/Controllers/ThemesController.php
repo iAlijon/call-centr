@@ -12,9 +12,10 @@ class ThemesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $model = CallThemes::orderBy('created_at', 'desc')->paginate(20);
+        $params = $request->all();
+        $model = CallThemes::where('yammt_type', $params['yammt_type'])->orderBy('created_at', 'desc')->paginate(20);
         return response()->json(['success' => true, 'data' => $model, 'message' => 'ok']);
     }
 
