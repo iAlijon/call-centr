@@ -67,7 +67,8 @@ class CallRegistrationController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $model = CallRegistration::where('id', $id)->first();
+        return \response()->json(['success' => true,'data' => $model, 'message' => 'ok']);
     }
 
     /**
@@ -75,7 +76,7 @@ class CallRegistrationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
     /**

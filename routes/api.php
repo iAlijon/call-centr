@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminAddOperatorController;
 use App\Http\Controllers\CallRegistrationController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ThemesController;
@@ -19,4 +20,7 @@ Route::middleware('auth:api')->group(function (){
     Route::post('question', [QuestionController::class, 'store']);
     Route::apiResource('call_registration', CallRegistrationController::class);
     Route::apiResource('theme', ThemesController::class);
+    Route::post('operator_create', [AdminAddOperatorController::class, 'store']);
+    Route::get('operator_create/{id}', [AdminAddOperatorController::class, 'show']);
+    Route::put('operator_create/{id}', [AdminAddOperatorController::class, 'update']);
 });
