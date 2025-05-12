@@ -14,7 +14,7 @@ class ThemesController extends Controller
      */
     public function index()
     {
-        $model = CallThemes::orderBy('created_at', 'desc')->paginate(20);
+        $model = CallThemes::where('yammt_type', 1)->orderBy('created_at', 'desc')->paginate(20);
         return response()->json(['success' => true, 'data' => $model, 'message' => 'ok']);
     }
 
