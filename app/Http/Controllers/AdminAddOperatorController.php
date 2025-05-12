@@ -11,7 +11,7 @@ class AdminAddOperatorController extends Controller
 {
     public function index()
     {
-        $users = User::select('id','name','password')->paginate(20);
+       $users = User::where('role_id', 2)->select('id','name','password')->paginate(20);
        return \response()->json(['success' => true,'data' => $users, 'message' => 'ok']);
     }
 
