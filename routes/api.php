@@ -15,6 +15,7 @@ Route::get('/user', function (Request $request) {
 Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group(function (){
+    Route::post('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
     Route::apiResource('category', CategoryController::class);
     Route::get('question_list', [QuestionController::class, 'index']);
     Route::post('question', [QuestionController::class, 'store']);
