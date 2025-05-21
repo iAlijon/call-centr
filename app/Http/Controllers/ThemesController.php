@@ -15,7 +15,7 @@ class ThemesController extends Controller
     public function index(Request $request)
     {
         $params = $request->all();
-        if (!isset($params['yammt_type'])) {
+        if (isset($params['yammt_type'])) {
             $model = CallThemes::where('yammt_type', $params['yammt_type'])->orderBy('created_at', 'desc')->paginate(20);
         }else {
             $model = CallThemes::orderBy('created_at', 'desc')->paginate(20);
